@@ -12,7 +12,7 @@ public class CensusAnalyserTest {
 	static final String WRONG_CSV_FILE_TYPE = "src\\main\\resources\\wrongFileType.txt";
 
 	static final String INDIAN_STATE_CODE = "src\\main\\resources\\indianStateCode.csv";
-	static final String WRONG_INDIAN_STATE_CODE_FILE = "src\\main\\resources\\indianStateCodeWrongFile.txt";
+	static final String WRONG_INDIAN_STATE_CODE_FILE = "src\\main\\resources\\indianStateCodeWrongFile.csv";
 
 
 	@Test
@@ -109,9 +109,9 @@ public class CensusAnalyserTest {
 
 		int count;
 		try {
-			count = stateCensus.loadIndianStateCode(WRONG_INDIAN_STATE_CODE_FILE);
+			count = stateCensus.loadIndianStateCode(WRONG_CSV_FILE);
 		} catch (CensusAnalyserException e) {
-			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_HEADER_PROBLEM, e.type);
 		}
 
 	}
@@ -137,7 +137,21 @@ public class CensusAnalyserTest {
 
 		int count;
 		try {
-			count = stateCensus.loadIndianStateCode(WRONG_CSV_FILE);
+			count = stateCensus.loadIndianStateCode(WRONG_INDIAN_STATE_CODE_FILE);
+		} catch (CensusAnalyserException e) {
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_HEADER_PROBLEM, e.type);
+		}
+
+	}
+	
+	@Test
+	public void checkStateCodeDataWithWrongHeader() {
+
+		CSVStateCensus stateCensus = new CSVStateCensus();
+
+		int count;
+		try {
+			count = stateCensus.loadIndianStateCode(WRONG_INDIAN_STATE_CODE_FILE);
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_HEADER_PROBLEM, e.type);
 		}
