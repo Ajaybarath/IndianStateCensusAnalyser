@@ -8,7 +8,7 @@ public class CensusAnalyserTest {
 
 	static final String CSV_PATH = "src\\main\\resources\\stateCensusFile.csv";
 	static final String WRONG_CSV_PATH = "src\\main\\resources\\wrongFilePath.csv";
-	static final String WRONG_CSV_FILE = "src\\main\\resources\\wrong File.csv";
+	static final String WRONG_CSV_FILE = "src\\main\\resources\\wrongFile.csv";
 	static final String WRONG_CSV_FILE_TYPE = "src\\main\\resources\\wrongFileType.txt";
 
 
@@ -65,7 +65,21 @@ public class CensusAnalyserTest {
 		try {
 			count = stateCensus.loadIndianStateCensusData(WRONG_CSV_FILE);
 		} catch (CensusAnalyserException e) {
-			Assert.assertEquals(CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE, e.type);
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_HEADER_PROBLEM, e.type);
+		}
+
+	}
+	
+	@Test
+	public void checkStateCensusAnalyserDataWithWrongHeader() {
+
+		CSVStateCensus stateCensus = new CSVStateCensus();
+
+		int count;
+		try {
+			count = stateCensus.loadIndianStateCensusData(WRONG_CSV_FILE);
+		} catch (CensusAnalyserException e) {
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_HEADER_PROBLEM, e.type);
 		}
 
 	}
