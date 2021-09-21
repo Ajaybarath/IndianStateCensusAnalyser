@@ -100,4 +100,19 @@ public class CensusAnalyserTest {
 		}
 
 	}
+	
+	
+	@Test
+	public void checkStateCodeDataWithWrongFile() {
+
+		CSVStateCensus stateCensus = new CSVStateCensus();
+
+		int count;
+		try {
+			count = stateCensus.loadIndianStateCode(WRONG_INDIAN_STATE_CODE_FILE);
+		} catch (CensusAnalyserException e) {
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+		}
+
+	}
 }
