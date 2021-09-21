@@ -8,18 +8,19 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import com.bridgeLabz.indianStateCensusAnalyser.CensusAnalyserException.ExceptionType;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 public class CSVStateCensus {
 
-	public int loadIndianStateCensusData(String csvFilePath) {
+	public int loadIndianStateCensusData(String csvFilePath) throws CensusAnalyserException {
 
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
 
-			CsvToBean<IndianCensusCSV> csvToBean = new CsvToBeanBuilder<IndianCensusCSV>(reader).withType(IndianCensusCSV.class)
-					.withIgnoreLeadingWhiteSpace(true).build();
+			CsvToBean<IndianCensusCSV> csvToBean = new CsvToBeanBuilder<IndianCensusCSV>(reader)
+					.withType(IndianCensusCSV.class).withIgnoreLeadingWhiteSpace(true).build();
 
 			Iterator<IndianCensusCSV> iterator = csvToBean.iterator();
 
@@ -29,11 +30,12 @@ public class CSVStateCensus {
 
 			return numberOfEnteries;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
+			throw new CensusAnalyserException(e.getMessage(), ExceptionType.CENSUS_FILE_PROBLEM);
+		} catch (IllegalStateException e) {
+			throw new CensusAnalyserException(e.getMessage(), ExceptionType.UNABLE_TO_PARSE);
+		} catch (RuntimeException e) {
+			throw new CensusAnalyserException(e.getMessage(), ExceptionType.CENSUS_HEADER_PROBLEM);
 		}
-		return 0;
 
 	}
 
