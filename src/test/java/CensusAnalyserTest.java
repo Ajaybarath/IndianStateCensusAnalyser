@@ -9,6 +9,8 @@ public class CensusAnalyserTest {
 	static final String CSV_PATH = "src\\main\\resources\\stateCensusFile.csv";
 	static final String WRONG_CSV_PATH = "src\\main\\resources\\wrongFilePath.csv";
 	static final String WRONG_CSV_FILE = "src\\main\\resources\\wrongFile.csv";
+	static final String WRONG_CSV_FILE_TYPE = "src\\main\\resources\\wrongFileType.txt";
+
 
 
 	@Test
@@ -34,6 +36,20 @@ public class CensusAnalyserTest {
 		int count;
 		try {
 			count = stateCensus.loadIndianStateCensusData(WRONG_CSV_PATH);
+		} catch (CensusAnalyserException e) {
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+		}
+
+	}
+	
+	@Test
+	public void checkStateCensusAnalyserDataWithWrongFileType() {
+
+		CSVStateCensus stateCensus = new CSVStateCensus();
+
+		int count;
+		try {
+			count = stateCensus.loadIndianStateCensusData(WRONG_CSV_FILE_TYPE);
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
 		}
