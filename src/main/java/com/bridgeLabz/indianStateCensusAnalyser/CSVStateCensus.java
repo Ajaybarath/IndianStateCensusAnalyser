@@ -18,7 +18,7 @@ public class CSVStateCensus {
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
 
-			CsvToBean<IndianCensusCSV> csvToBean = new CsvToBeanBuilder(reader).withType(IndianCensusCSV.class)
+			CsvToBean<IndianCensusCSV> csvToBean = new CsvToBeanBuilder<IndianCensusCSV>(reader).withType(IndianCensusCSV.class)
 					.withIgnoreLeadingWhiteSpace(true).build();
 
 			Iterator<IndianCensusCSV> iterator = csvToBean.iterator();
