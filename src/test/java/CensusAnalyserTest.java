@@ -129,4 +129,18 @@ public class CensusAnalyserTest {
 		}
 
 	}
+	
+	@Test
+	public void checkStateCodeDataWithWrongDelimeter() {
+
+		CSVStateCensus stateCensus = new CSVStateCensus();
+
+		int count;
+		try {
+			count = stateCensus.loadIndianStateCode(WRONG_CSV_FILE);
+		} catch (CensusAnalyserException e) {
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_HEADER_PROBLEM, e.type);
+		}
+
+	}
 }
