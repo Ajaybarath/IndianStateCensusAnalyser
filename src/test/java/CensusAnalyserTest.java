@@ -11,6 +11,8 @@ public class CensusAnalyserTest {
 	static final String WRONG_CSV_FILE = "src\\main\\resources\\wrongFile.csv";
 	static final String WRONG_CSV_FILE_TYPE = "src\\main\\resources\\wrongFileType.txt";
 
+	static final String INDIAN_STATE_CODE = "src\\main\\resources\\indianStateCode.csv";
+	static final String WRONG_INDIAN_STATE_CODE_FILE = "src\\main\\resources\\indianStateCodeWrongFile.txt";
 
 
 	@Test
@@ -80,6 +82,21 @@ public class CensusAnalyserTest {
 			count = stateCensus.loadIndianStateCensusData(WRONG_CSV_FILE);
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_HEADER_PROBLEM, e.type);
+		}
+
+	}
+	
+	@Test
+	public void checkStateCodeCountWithCSVFile() {
+
+		CSVStateCensus stateCensus = new CSVStateCensus();
+
+		int count;
+		try {
+			count = stateCensus.loadIndianStateCode(INDIAN_STATE_CODE);
+			Assert.assertEquals(8, count);
+
+		} catch (CensusAnalyserException e) {
 		}
 
 	}
