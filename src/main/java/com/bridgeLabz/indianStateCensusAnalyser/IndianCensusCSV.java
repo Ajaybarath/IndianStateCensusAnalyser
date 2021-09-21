@@ -6,6 +6,9 @@ public class IndianCensusCSV {
 
 	private int population;
 
+	public IndianCensusCSV() {
+	}
+
 	public IndianCensusCSV(String state, int population) {
 		super();
 		this.state = state;
